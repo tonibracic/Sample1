@@ -1,75 +1,75 @@
 version: '3.4'
 
 services:
-  sql.data:
+  sql-data:
     image: microsoft/mssql-server-linux:2017-latest
 
-  nosql.data:
+  nosql-data:
     image: mongo
 
-  basket.data:
+  basket-data:
     image: redis:alpine
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
-  identity.api:
+  identity-api:
     image: eshop/identity.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Identity/Identity.API/Dockerfile    
     depends_on:
-      - sql.data
+      - sql-data
 
-  basket.api:
+  basket-api:
     image: eshop/basket.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Basket/Basket.API/Dockerfile    
     depends_on:
-      - basket.data
-      - identity.api
+      - basket-data
+      - identity-api
       - rabbitmq
 
-  catalog.api:
+  catalog-api:
     image: eshop/catalog.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
     depends_on:
-      - sql.data
+      - sql-data
       - rabbitmq
 
-  ordering.api:
+  ordering-api:
     image: eshop/ordering.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile    
     depends_on:
-      - sql.data
+      - sql-data
       - rabbitmq
 
-  ordering.backgroundtasks:
+  ordering-backgroundtasks:
     image: eshop/ordering.backgroundtasks:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.BackgroundTasks/Dockerfile    
     depends_on:
-      - sql.data
+      - sql-data
       - rabbitmq
 
-  marketing.api:
+  marketing-api:
     image: eshop/marketing.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Marketing/Marketing.API/Dockerfile    
     depends_on:
-      - sql.data
-      - nosql.data
-      - identity.api
+      - sql-data
+      - nosql-data
+      - identity-api
       - rabbitmq
 
-  payment.api:
+  payment-api:
     image: eshop/payment.api:${TAG:-latest}
     build:
       context: .
@@ -77,13 +77,13 @@ services:
     depends_on:
       - rabbitmq    
 
-  locations.api:
+  locations-api:
     image: eshop/locations.api:${TAG:-latest}
     build:
       context: .
       dockerfile: src/Services/Location/Locations.API/Dockerfile
     depends_on:
-      - nosql.data
+      - nosql-data
       - rabbitmq
 
   mobileshoppingapigw:
@@ -92,14 +92,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/ApiGw-Base/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   mobilemarketingapigw:
     image: eshop/ocelotapigw:${TAG:-latest}
@@ -107,14 +107,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/ApiGw-Base/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   webshoppingapigw:
     image: eshop/ocelotapigw:${TAG:-latest}
@@ -122,14 +122,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/ApiGw-Base/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   webmarketingapigw:
     image: eshop/ocelotapigw:${TAG:-latest}
@@ -137,14 +137,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/ApiGw-Base/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   mobileshoppingagg:
     image: eshop/mobileshoppingagg:${TAG:-latest}
@@ -152,14 +152,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/Mobile.Bff.Shopping/aggregator/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   webshoppingagg:
     image: eshop/webshoppingagg:${TAG:-latest}
@@ -167,14 +167,14 @@ services:
       context: .
       dockerfile: src/ApiGateways/Web.Bff.Shopping/aggregator/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   ordering.signalrhub:
     image: eshop/ordering.signalrhub:${TAG:-latest}
@@ -182,14 +182,14 @@ services:
       context: .
       dockerfile: src/Services/Ordering/Ordering.SignalrHub/Dockerfile
     depends_on:
-      - nosql.data
-      - sql.data
-      - identity.api
+      - nosql-data
+      - sql-data
+      - identity-api
       - rabbitmq
-      - ordering.api
-      - marketing.api
-      - catalog.api
-      - basket.api
+      - ordering-api
+      - marketing-api
+      - catalog-api
+      - basket-api
 
   webstatus:
     image: eshop/webstatus:${TAG:-latest}
