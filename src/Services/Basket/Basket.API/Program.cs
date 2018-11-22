@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
 using System;
 using System.IO;
 
@@ -28,7 +31,7 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     var builtConfig = config.Build();
-
+                    
                     var configurationBuilder = new ConfigurationBuilder();
 
                     if (Convert.ToBoolean(builtConfig["UseVault"]))
@@ -50,6 +53,25 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
                     builder.AddDebug();
                 })
                 .UseApplicationInsights()
+                .UseSerilog((builderContext, config) =>
+                {
+                    config
+                        .MinimumLevel.Information()
+                        .Enrich.FromLogContext();
+
+                    if (builderContext.Configuration["UseElasticSearch"] == Boolean.TrueString)
+                    {
+                        config.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builderContext.Configuration["ElasticSearchSvcUrl"]))
+                        {
+                            MinimumLogEventLevel = LogEventLevel.Verbose,
+                            AutoRegisterTemplate = true
+                        });
+                    }
+                    else
+                    {
+                        config.WriteTo.Console();
+                    }
+                })
                 .Build();
     }
 }

@@ -25,6 +25,7 @@ using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
+using Serilog;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -66,7 +67,9 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
                                         );
             });
 
-            services.Configure<BasketSettings>(Configuration);            
+            services.Configure<BasketSettings>(Configuration);
+
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             //By connecting here we are making sure that our service
             //cannot start until redis is ready. This might slow down startup,

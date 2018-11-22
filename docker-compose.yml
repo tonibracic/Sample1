@@ -13,6 +13,14 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
 
+  elasticsearch:
+    image: elasticsearch:5-alpine
+
+  kibana:
+    image: kibana:6.4.2
+    depends_on: 
+      - elasticsearch
+
   identity.api:
     image: eshop/identity.api:${TAG:-latest}
     build:
@@ -30,6 +38,7 @@ services:
       - basket.data
       - identity.api
       - rabbitmq
+      - elasticsearch
 
   catalog.api:
     image: eshop/catalog.api:${TAG:-latest}

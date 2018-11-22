@@ -27,6 +27,17 @@ services:
       - "15672:15672"  # Important: In a production environment your should remove the external port
       - "5672:5672"    # Important: In a production environment your should remove the external port
 
+  elasticsearch:
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    ports:
+      - "5601:5601"
+
   identity.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -61,6 +72,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch
 
     ports:
       - "5103:80"   # Important: In a production environment your should remove the external port (5103) kept here for microservice debugging purposes. 
