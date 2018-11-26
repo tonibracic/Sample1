@@ -28,6 +28,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.HealthChecks;
     using Microsoft.Extensions.Logging;
+    using Serilog;
     using Ordering.Infrastructure;
     using RabbitMQ.Client;
     using Swashbuckle.AspNetCore.Swagger;

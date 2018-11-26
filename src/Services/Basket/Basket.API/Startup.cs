@@ -68,7 +68,7 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
             });
 
             services.Configure<BasketSettings>(Configuration);
-
+            
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
             //By connecting here we are making sure that our service
@@ -185,7 +185,8 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
         {
             loggerFactory.AddAzureWebAppDiagnostics();
             loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Trace);
-
+            loggerFactory.AddSerilog();
+            
             var pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {

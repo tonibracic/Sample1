@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
+using System;
 using System.IO;
 
 namespace Payment.API
@@ -30,6 +34,26 @@ namespace Payment.API
                     builder.AddDebug();
                 })
                 .UseApplicationInsights()
+                .UseSerilog((builderContext, config) =>
+                {
+                    config
+                        .MinimumLevel.Debug()
+                        .Enrich.FromLogContext();
+
+                    if (builderContext.Configuration["UseElasticSearch"] == Boolean.TrueString)
+                    {
+                        config.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builderContext.Configuration["ElasticSearchSvcUrl"]))
+                        {
+                            MinimumLogEventLevel = LogEventLevel.Verbose,
+                            AutoRegisterTemplate = true
+                        })
+                        .CreateLogger();
+                    }
+                    else
+                    {
+                        config.WriteTo.Console();
+                    }
+                })
                 .Build();
     }
 }

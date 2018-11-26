@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
+using System;
+using Serilog.Events;
 
 namespace eShopConContainers.WebSPA
 {
@@ -28,7 +32,27 @@ namespace eShopConContainers.WebSPA
                     builder.AddConsole();
                     builder.AddDebug();
                 })
-                .UseApplicationInsights()                
+                .UseApplicationInsights()
+                .UseSerilog((builderContext, config) =>
+                {
+                    config
+                        .MinimumLevel.Debug()
+                        .Enrich.FromLogContext();
+
+                    if (builderContext.Configuration["UseElasticSearch"] == Boolean.TrueString)
+                    {
+                        config.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builderContext.Configuration["ElasticSearchSvcUrl"]))
+                        {
+                            MinimumLogEventLevel = LogEventLevel.Verbose,
+                            AutoRegisterTemplate = true
+                        })
+                        .CreateLogger();
+                    }
+                    else
+                    {
+                        config.WriteTo.Console();
+                    }
+                })
                 .Build();       
     }
 }

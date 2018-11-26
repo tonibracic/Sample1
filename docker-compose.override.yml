@@ -73,7 +73,7 @@ services:
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
       - UseElasticSearch=TRUE
-      - ElasticSearchSvcUrl=http://elasticsearch
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
 
     ports:
       - "5103:80"   # Important: In a production environment your should remove the external port (5103) kept here for microservice debugging purposes. 
@@ -95,6 +95,8 @@ services:
       - AzureStorageEnabled=False
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5101:80"   # Important: In a production environment your should remove the external port (5101) kept here for microservice debugging purposes. 
                     # The API Gateway redirects and access through the internal port (80).
@@ -115,6 +117,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5102:80"   # Important: In a production environment your should remove the external port (5102) kept here for microservice debugging purposes. 
                     # The API Gateway redirects and access through the internal port (80).
@@ -135,6 +139,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5111:80"
 
@@ -159,6 +165,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5110:80"   # Important: In a production environment your should remove the external port (5110) kept here for microservice debugging purposes. 
                     # The API Gateway redirects and access through the internal port (80).
@@ -173,6 +181,8 @@ services:
       - AzureServiceBusEnabled=False
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5108:80"   # Important: In a production environment your should remove the external port (5108) kept here for microservice debugging purposes. 
                     # The API Gateway redirects and access through the internal port (80).
@@ -192,6 +202,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5109:80"   # Important: In a production environment your should remove the external port (5109) kept here for microservice debugging purposes. 
                     # The API Gateway redirects and access through the internal port (80).
@@ -265,6 +277,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - identityUrl=http://identity.api              #Local: You need to open your local dev-machine firewall at range 5100-5110.
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5112:80"
 
@@ -284,6 +298,8 @@ services:
       - spa=http://webspa/hc
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5107:80"
 
@@ -304,6 +320,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - SignalrHubUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5202
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5104:80"
 
@@ -325,6 +343,8 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
       - UseLoadTest=${USE_LOADTEST:-False}
+      - UseElasticSearch=TRUE
+      - ElasticSearchSvcUrl=http://elasticsearch:9200
     ports:
       - "5100:80"
 

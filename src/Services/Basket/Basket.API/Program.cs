@@ -57,7 +57,7 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
                 {
                     config
                         .MinimumLevel.Information()
-                        .Enrich.FromLogContext();
+                        .Enrich.FromLogContext();                        
 
                     if (builderContext.Configuration["UseElasticSearch"] == Boolean.TrueString)
                     {
@@ -65,7 +65,9 @@ namespace Microsoft.eShopOnContainers.Services.Basket.API
                         {
                             MinimumLogEventLevel = LogEventLevel.Verbose,
                             AutoRegisterTemplate = true
-                        });
+                        })
+                        .WriteTo.Console()
+                        .CreateLogger();
                     }
                     else
                     {
