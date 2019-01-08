@@ -1,0 +1,34 @@
+﻿{
+    "ReRoutes": [
+      {
+        "DownstreamPathTemplate": "/api/{version}/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "marketingapi.eshoponservicefabric",
+            "Port": 5110
+          }
+        ],
+        "UpstreamPathTemplate": "/api/{version}/m/{everything}",
+        "UpstreamHttpMethod": []
+      },
+      {
+        "DownstreamPathTemplate": "/api/{version}/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "locationsapi.eshoponservicefabric",
+            "Port": 5109
+          }
+        ],
+        "UpstreamPathTemplate": "/api/{version}/l/{everything}",
+        "UpstreamHttpMethod": []
+      }
+  
+    ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration"
+  }
+  }
+    
