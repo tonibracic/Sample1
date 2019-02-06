@@ -22,19 +22,19 @@
     <EnvironmentVariables>
       <EnvironmentVariable Name="ASPNETCORE_ENVIRONMENT" Value="Development"/>
       <EnvironmentVariable Name="ASPNETCORE_URLS" Value="http://0.0.0.0:80"/>
-      <EnvironmentVariable Name="CatalogUrl" Value=""/>
-      <EnvironmentVariable Name="OrderingUrl" Value=""/>
-      <EnvironmentVariable Name="BasketUrl" Value=""/>
-      <EnvironmentVariable Name="MarketingUrl" Value=""/>
       <EnvironmentVariable Name="IdentityUrl" Value="http://#{your_sf_dns}#:5105"/>
-      <EnvironmentVariable Name="CatalogUrlHC" Value="http://catalogapi.eshoponservicefabric:5101/hc"/>
-      <EnvironmentVariable Name="OrderingUrlHC" Value="http://orderingapi.eshoponservicefabric:5102/hc"/>
-      <EnvironmentVariable Name="IdentityUrlHC" Value="http://identityapi.eshoponservicefabric:5105/hc"/>
-      <EnvironmentVariable Name="BasketUrlHC" Value="http://basketapi.eshoponservicefabric:5103/hc"/>
-      <EnvironmentVariable Name="MarketingUrlHC" Value="http://marketingapi.eshoponservicefabric:5110/hc"/>
+      <EnvironmentVariable Name="PurchaseUrl" Value="http://#{your_sf_dns}#:5202"/>
+      <EnvironmentVariable Name="MarketingUrl" Value="http://#{your_sf_dns}#:5203"/>
+      <EnvironmentVariable Name="CatalogUrl" Value="http://#{your_sf_dns}#:5101" />
+      <EnvironmentVariable Name="OrderingUrl" Value="http://#{your_sf_dns}#:5102" />
+      <EnvironmentVariable Name="BasketUrl" Value="http://#{your_sf_dns}#:5103" />
+      <EnvironmentVariable Name="PurchaseUrlHC" Value="http://webshoppingapigw/hc"/>
+      <EnvironmentVariable Name="MarketingUrlHC" Value="http://webmarketingapigw/hc"/>
+      <EnvironmentVariable Name="IdentityUrlHC" Value="http://identity.api/hc"/>
       <EnvironmentVariable Name="UseCustomizationData" Value="True"/>
       <EnvironmentVariable Name="ApplicationInsights:InstrumentationKey" Value=""/>
       <EnvironmentVariable Name="OrchestratorType" Value="SF"/>
+      <EnvironmentVariable Name="SignalrHubUrl" Value="http://#{your_sf_dns}#:5202"/>
     </EnvironmentVariables>
   </CodePackage>
 
