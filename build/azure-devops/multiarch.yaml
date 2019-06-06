@@ -21,7 +21,7 @@ jobs:
       dockerRegistryEndpoint: ${{ parameters.registryEndpoint }}
   - bash: |
       echo 'DOCKER_CONFIG:' $DOCKER_CONFIG
-      ls $DOCKER_CONFIG
+      cat $DOCKER_CONFIG/config.json
       mkdir -p ~/.docker
       echo '{ "experimental": "enabled" }' > ~/.docker/config.json
       docker --config ~/.docker manifest create ${{ parameters.registry }}/${{ parameters.image }}:${{ parameters.branch }} ${{ parameters.registry }}/${{ parameters.image }}:linux-${{ parameters.branch }} ${{ parameters.registry }}/${{ parameters.image }}:win-${{ parameters.branch }}
