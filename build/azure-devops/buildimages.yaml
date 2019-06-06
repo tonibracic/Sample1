@@ -26,7 +26,7 @@ jobs:
       PLATFORM: win
       NODE_IMAGE: stefanscherer/node-windows:8.11
 - job: BuildLinux
-  condition: ne('${{ variables['Build.Reason'] }}', 'PullRequest')
+  condition: eq('${{ variables['Build.Reason'] }}', 'PullRequest')
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -61,7 +61,7 @@ jobs:
       pathtoPublish: ${{ parameters.helmto }}
       artifactName: helm
 - job: BuildWindows
-  condition: ne('${{ variables['Build.Reason'] }}', 'PullRequest')
+  condition: eq('${{ variables['Build.Reason'] }}', 'PullRequest')
   pool:
     vmImage: 'windows-2019'
   steps:
